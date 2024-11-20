@@ -11,27 +11,27 @@ class Todo(BaseModel):
     done: bool
     deadline: Optional[date]
 
-list = []
+todolist = []
 
 @app.post('/insert')
 def insert(todo: Todo):
     try:
-        list.append(todo)
+        todolist.append(todo)
         return {'status': 'success'}
     
     except:
         return { 'status': 'erro'}
 
 
-@app.post('/list')
-def list(optional: int = 0):
+@app.post('/mylist')
+def mylist(optional: int = 0):
     if optional == 0:
-        return list
+        return todolist
     elif optional == 1:
-        return list(filter(lambda x: x.done == False, list))
+        return list(filter(lambda x: x.done == False, todolist))
 
     elif optional == 2:
-        return list(filter(lambda x: x.done == True, list))
+        return list(filter(lambda x: x.done == True, todolist))
 
     
 
