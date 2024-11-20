@@ -20,8 +20,7 @@ def insert(todo: Todo):
         return {'status': 'success'}
     
     except:
-        return { 'status': 'erro'}
-
+        return { 'status': 'error'}
 
 @app.post('/mylist')
 def mylist(optional: int = 0):
@@ -33,6 +32,11 @@ def mylist(optional: int = 0):
     elif optional == 2:
         return list(filter(lambda x: x.done == True, todolist))
 
-    
+@app.get('/todo/{id}')
+def mylist(id: int):
+    try:
+        return todolist[id]
+    except:
+        return {'status': f'There is no to-do registered in this id {id}'}
 
 
