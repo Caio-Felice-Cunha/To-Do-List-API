@@ -39,4 +39,26 @@ def mylist(id: int):
     except:
         return {'status': f'There is no to-do registered in this id {id}'}
 
+@app.post('/modifyStatus')
+def modifyStatus(id: int):
+    try:
+        todolist[id].done = not todolist[id].done
+        return {'status': 'success'}
+
+    except:
+        return {'status': 'error'}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
