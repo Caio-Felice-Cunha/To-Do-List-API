@@ -49,8 +49,13 @@ def modifyStatus(id: int):
         return {'status': 'error'}
 
 
-
-
+@app.post('/deleteItem')
+def deleteItem(id: int):
+    try:
+        del todolist[id]
+        return {'status': 'success'}
+    except:
+        return {'status': 'error'}
 
 
 
