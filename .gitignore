@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local databases / dumps
+*.db
+*.sqlite3
+
+# Environment files
+.env
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
