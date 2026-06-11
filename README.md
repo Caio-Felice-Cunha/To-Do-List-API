@@ -33,21 +33,32 @@ stateDiagram-v2
 
 3. Install dependencies:
    ```bash
-   pip install fastapi uvicorn
+   pip install -r requirements.txt
    ```
 
 4. Run the server:
    ```bash
-   uvicorn main:app --reload
+   uvicorn todoapi:app --reload
    ```
+
+   Interactive docs are then available at `http://127.0.0.1:8000/docs`.
 
 ## 🚦 Endpoints
 
-- `POST /insert`: Add a new todo item
-- `POST /mylist`: Retrieve todo items (with optional filtering)
-- `GET /todo/{id}`: Get a specific todo item
-- `POST /modifyStatus`: Toggle task completion status
-- `POST /deleteItem`: Remove a todo item
+- `POST /insert`: Add a new todo item. Body: `{"task": str, "done": bool, "deadline": "YYYY-MM-DD" or omitted}`.
+- `POST /mylist`: Retrieve todo items. Query param `optional`: `0` all (default), `1` pending only, `2` done only. Any other value returns 422.
+- `GET /todo/{id}`: Get a specific todo item by its list position. Out-of-range or negative ids return 404.
+- `POST /modifyStatus`: Toggle a task's completion status. Query param `id`.
+- `POST /deleteItem`: Remove a todo item. Query param `id`.
+
+## ✅ Running the tests
+
+```bash
+pip install -r requirements.txt
+pytest
+```
+
+The suite (`test_todoapi.py`) covers insert, list, filtering, get, status toggle, and delete, plus the 404 cases for negative and out-of-range ids.
 
 ## 🤝 Contributing
 
@@ -59,10 +70,11 @@ stateDiagram-v2
 
 ## 🐛 Known Issues & Future Plans
 
-- Persistent storage not implemented
-- No authentication mechanism
-- Future: Add database integration
-- Future: Implement user authentication
+- Persistent storage not implemented. The list lives in memory and is cleared on restart.
+- No authentication mechanism.
+- Ids are list positions, so they shift after a deletion. Delete id `0` and every later item's id drops by one. This is fine for a single-session demo but not for a shared or long-lived store.
+- Future: add database integration (which would also give stable ids).
+- Future: implement user authentication.
 
 ## 📄 License
 
